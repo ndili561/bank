@@ -1,6 +1,7 @@
-var Bank = function(name,type){
+var _ = require ('lodash');
+
+var Bank = function(name){
   this.name = name;
-  this.type = type;
   this.accounts = [];
 }
 
@@ -27,7 +28,7 @@ Bank.prototype = {
     var length = this.accounts.length
     for(i=0;i<length;i++)
     {
-    arr.push(this.accounts[i].value)
+      arr.push(this.accounts[i].value)
     }
     return  Math.max.apply(Math,arr);
   },
@@ -44,9 +45,22 @@ Bank.prototype = {
   {
     var length = this.accounts.length
     return this.find_sum() / length
+  },
+  find_total_account_type: function(type)
+  {
+    var arr = []
+    var length = this.accounts.length
+    for(i=0;i<length;i++)
+    { 
+      if(this.accounts[i].type===type)
+      {
+        arr.push(this.accounts[i].value)
+      }     
+    }
+    return _.reduce(arr, function(sum, n) {
+     return sum + n;
+   }, 0); 
   }
-
-
 }
   
 
